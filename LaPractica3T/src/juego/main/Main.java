@@ -16,6 +16,9 @@ public class Main {
 
         while (MenuPrincipal.isEstadoMenu()) {
             switch (MenuPrincipal.mostrarMenuPrincipal()) {
+                case 2:
+                    MenuPrincipal.mostrarRanking();
+                    break;
                 case 4:
                     MenuUsuario.abrirMenuUsuario();
                     break;

@@ -65,7 +65,6 @@ public abstract class MenuUsuario {
         } catch (IOException e) {
             System.out.println("Error: No se ha podido crear el usuario: " + e.getMessage());
         }
-        scanner.close();
     }
 
     public static void verUsuarios() {

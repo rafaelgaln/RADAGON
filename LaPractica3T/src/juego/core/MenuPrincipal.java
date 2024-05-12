@@ -1,5 +1,13 @@
 package juego.core;
+import juego.utilidades.Constantes;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public abstract class MenuPrincipal {
 
@@ -18,6 +26,34 @@ public abstract class MenuPrincipal {
                 "(4) Jugadores registrados \n" +
                 "(5) Salir del juego");
         return insertarOpcion(1,5);
+    }
+
+    public static void mostrarRanking() {
+        try {
+
+            List<String> lineas = Files.lines(Path.of(Constantes.rutaFicheroUsuarios))
+
+                    .sorted((linea1, linea2) -> {
+                        int ganadas1 = Integer.parseInt(linea1.split(",")[2]);
+                        int ganadas2 = Integer.parseInt(linea2.split(",")[2]);
+                        return Integer.compare(ganadas2, ganadas1);
+                    })
+                    .collect(Collectors.toList());
+
+
+            System.out.println("Ranking de jugadores:");
+            for (int i = 0; i < lineas.size(); i++) {
+                String[] datos = lineas.get(i).split(",");
+                String nombre = datos[0];
+                int ganadas = Integer.parseInt(datos[2]);
+                System.out.println((i+1) + ". " + nombre + " - Partidas ganadas: " + ganadas);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Error al convertir el número de partidas ganadas: " + e.getMessage());
+        }
     }
 
     public static int insertarOpcion (int min, int max) {
