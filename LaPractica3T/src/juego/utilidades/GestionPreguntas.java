@@ -3,9 +3,14 @@ package juego.utilidades;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class GestionPreguntas {
+
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static String generarOperacion() {
         int cantidadNumeros = (int) (Math.random() * 5) + 4;
@@ -41,9 +46,41 @@ public class GestionPreguntas {
         return operacionMates.toString();
     }
 
-    public static boolean preguntaMates() {
-        Scanner scanner = new Scanner(System.in);
-        String stringOperacion = generarOperacion();
+    public static String palabraAleatoria() {
+        List<String> palabras = new ArrayList<String>();
+
+        try {
+            palabras = Files.readAllLines(Paths.get(Constantes.rutaFicheroDiccionario));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        int numeroPalabra = (int) (Math.random() * (palabras.size()));
+
+        return palabras.get(numeroPalabra);
+    }
+
+    public static String ocultarPalabra(String palabra) {
+
+        int numeroLetras = palabra.length();
+        int letrasOcultadas = numeroLetras / 3;
+
+        char[] caracteresPalabra = palabra.toCharArray();
+
+        for (int i = 0; i < letrasOcultadas; i++) {
+            int numCaracter = (int) (Math.random() * (numeroLetras));
+            while (caracteresPalabra[numCaracter] == '_') {
+                numCaracter = (int) (Math.random() * (numeroLetras));
+            }
+            caracteresPalabra[numCaracter] = '_';
+        }
+        String palabraOculta = new String(caracteresPalabra);
+
+        return palabraOculta;
+    }
+
+    public static boolean preguntaMates(String stringOperacion) {
+
         System.out.println("Resuelve esta operación matemática: " + stringOperacion);
         try {
             double respuestaUsuario = scanner.nextDouble();
@@ -53,15 +90,36 @@ public class GestionPreguntas {
             if (resultado == respuestaUsuario) {
                 System.out.println("¡Respuesta correcta! :D");
             } else {
-                System.out.println("Respuesta erronea. :(");
+                System.out.println("¡No! La respuesta era: " + resultado);
                 return false;
             }
         } catch (Exception e) {
             System.out.println("Error: Tipo de dato insertado erroneo: " + e.getMessage() + "\n" +
                     "Respuesta evaluada como erronea.");
         } finally {
-            scanner.close();
+            scanner.nextLine();
         }
         return true;
     }
+
+    public static boolean preguntaLengua(String palabra) {
+
+        System.out.println("Completa con las letras que le faltan a la palabra: " + ocultarPalabra(palabra));
+
+        try {
+            String respuestaUsuario = scanner.nextLine();
+
+            if (Objects.equals(respuestaUsuario, palabra)) {
+                System.out.println("¡Respuesta correcta! :D");
+            } else {
+                System.out.println("¡No! La respuesta era: " + palabra);
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: Tipo de dato insertado erroneo: " + e.getMessage() + "\n" +
+                    "Respuesta evaluada como erronea.");
+        }
+        return true;
+    }
+
 }
