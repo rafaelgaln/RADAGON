@@ -79,6 +79,37 @@ public class GestionPreguntas {
         return palabraOculta;
     }
 
+    public static int elegirCuestion() {
+
+        List<String> inglesLineas = new ArrayList<String>();
+
+        try {
+            inglesLineas = Files.readAllLines(Paths.get(Constantes.rutaFicheroIngles));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        int lineaPregunta = (int) (Math.random() * 1000) * 5;
+
+        List<String> respuestas = new ArrayList<String>();
+        for (int i = 1; i <= 4; i++) {
+            respuestas.add(inglesLineas.get(lineaPregunta + i));
+        }
+        String respuestaCorrecta = respuestas.get(0);
+        Collections.shuffle(respuestas);
+        int indiceRespuestaCorrecta = respuestas.indexOf(respuestaCorrecta) + 1;
+
+        System.out.println("Contesta a esta pregunta en inglés: ");
+        System.out.println(inglesLineas.get(lineaPregunta));
+        for (int i = 0; i < 4; i++) {
+            System.out.print((i + 1) + ") ");
+            System.out.println(respuestas.get(i));
+            ;
+        }
+
+        return indiceRespuestaCorrecta;
+    }
+
     public static boolean preguntaMates(String stringOperacion) {
 
         System.out.println("Resuelve esta operación matemática: " + stringOperacion);
@@ -122,4 +153,23 @@ public class GestionPreguntas {
         return true;
     }
 
+    public static boolean preguntaIngles(int opcionCorrecta) {
+
+        try {
+            int respuestaUsuario = scanner.nextInt();
+
+            if (respuestaUsuario == opcionCorrecta) {
+                System.out.println("¡Respuesta correcta! :D");
+            } else {
+                System.out.println("¡No! La respuesta era: " + opcionCorrecta);
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: Tipo de dato insertado erroneo: " + e.getMessage() + "\n" +
+                    "Respuesta evaluada como erronea.");
+        } finally {
+            scanner.nextLine();
+        }
+        return true;
+    }
 }
