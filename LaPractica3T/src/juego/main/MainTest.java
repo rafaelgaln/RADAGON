@@ -1,19 +1,20 @@
 package juego.main;
 
-import juego.utilidades.Constantes;
-import juego.utilidades.GestionFicheros;
+import juego.partidas.Cpu;
+import juego.partidas.JugadorHumano;
 import juego.utilidades.GestionPreguntas;
-
-import java.io.IOException;
 
 public class MainTest {
 
     public static void main(String[] args) {
 
+        JugadorHumano jugador= new JugadorHumano();
+        Cpu cpu = new Cpu();
 
-        boolean correcto1 = GestionPreguntas.preguntaLengua(GestionPreguntas.palabraAleatoria());
-        boolean correcto2 = GestionPreguntas.preguntaMates(GestionPreguntas.generarOperacion());
-        boolean correcto3 = GestionPreguntas.preguntaIngles(GestionPreguntas.elegirCuestion());
+        for (int i = 0; i<5; i++) {
+            GestionPreguntas.preguntaAleatoria(jugador);
+            GestionPreguntas.preguntaAleatoria(cpu);
+        }
 
     }
 }

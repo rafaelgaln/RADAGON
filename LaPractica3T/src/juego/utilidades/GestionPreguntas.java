@@ -1,5 +1,6 @@
 package juego.utilidades;
 
+import juego.partidas.Jugador;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
@@ -110,13 +111,16 @@ public class GestionPreguntas {
         return indiceRespuestaCorrecta;
     }
 
-    public static boolean preguntaMates(String stringOperacion) {
+    public static boolean preguntaMates(Jugador jugador) {
+
+        String stringOperacion = generarOperacion();
 
         System.out.println("Resuelve esta operación matemática: " + stringOperacion);
         try {
-            double respuestaUsuario = scanner.nextDouble();
+
             Expression operacion = new ExpressionBuilder(stringOperacion).build();
             double resultado = operacion.evaluate();
+            double respuestaUsuario = jugador.contestarMates(resultado);
 
             if (resultado == respuestaUsuario) {
                 System.out.println("¡Respuesta correcta! :D");
@@ -127,18 +131,17 @@ public class GestionPreguntas {
         } catch (Exception e) {
             System.out.println("Error: Tipo de dato insertado erroneo: " + e.getMessage() + "\n" +
                     "Respuesta evaluada como erronea.");
-        } finally {
-            scanner.nextLine();
         }
         return true;
     }
 
-    public static boolean preguntaLengua(String palabra) {
+    public static boolean preguntaLengua(Jugador jugador) {
 
+        String palabra = palabraAleatoria();
         System.out.println("Completa con las letras que le faltan a la palabra: " + ocultarPalabra(palabra));
 
         try {
-            String respuestaUsuario = scanner.nextLine();
+            String respuestaUsuario = jugador.contestarLengua(palabra);
 
             if (Objects.equals(respuestaUsuario, palabra)) {
                 System.out.println("¡Respuesta correcta! :D");
@@ -153,10 +156,12 @@ public class GestionPreguntas {
         return true;
     }
 
-    public static boolean preguntaIngles(int opcionCorrecta) {
+    public static boolean preguntaIngles(Jugador jugador) {
 
+        //Nota: elegirCuestion() imprime la pregunta
+        int opcionCorrecta = elegirCuestion();
         try {
-            int respuestaUsuario = scanner.nextInt();
+            int respuestaUsuario = jugador.contestarIngles(opcionCorrecta);
 
             if (respuestaUsuario == opcionCorrecta) {
                 System.out.println("¡Respuesta correcta! :D");
@@ -167,9 +172,25 @@ public class GestionPreguntas {
         } catch (Exception e) {
             System.out.println("Error: Tipo de dato insertado erroneo: " + e.getMessage() + "\n" +
                     "Respuesta evaluada como erronea.");
-        } finally {
-            scanner.nextLine();
         }
+
         return true;
+    }
+
+    public static boolean preguntaAleatoria(Jugador jugador) {
+        int numeroAleatorio = (int) (Math.random()*3)+1;
+        boolean preguntaAcertada = false;
+        switch (numeroAleatorio) {
+            case 1:
+                preguntaAcertada = preguntaMates(jugador);
+                break;
+            case 2:
+                preguntaAcertada = preguntaLengua(jugador);
+                break;
+            case 3:
+                preguntaAcertada = preguntaIngles(jugador);
+                break;
+        }
+        return preguntaAcertada;
     }
 }
