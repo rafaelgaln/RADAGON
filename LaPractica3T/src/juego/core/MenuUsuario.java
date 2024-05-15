@@ -107,7 +107,7 @@ public class MenuUsuario {
             return false;
         }
 
-        nombreUsuario += ",0,0\n"; // Mantenemos las segundas y terceras columnas con "0,0"
+        nombreUsuario += ",0,0\n";
 
         try {
             Files.writeString(pathFicheroUsuarios, nombreUsuario, StandardOpenOption.APPEND);
