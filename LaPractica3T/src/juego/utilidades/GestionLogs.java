@@ -52,7 +52,7 @@ public class GestionLogs {
      * @since 1.0
      */
     public static String logJugadorAnyadido (String nombreJugador) {
-        return ("(" + GestionFicheros.getDiaHoraActual() + ") Jugador añadido: " + nombreJugador);
+        return (GestionFicheros.getDiaHoraActual() + " Jugador añadido: " + nombreJugador);
     }
 
     /**
@@ -61,7 +61,7 @@ public class GestionLogs {
      * @return
      */
     public static String logJugadorBorrado (String nombreJugador) {
-        return ("(" + GestionFicheros.getDiaHoraActual() + ") Jugador borrado: " + nombreJugador);
+        return (GestionFicheros.getDiaHoraActual() + " Jugador borrado: " + nombreJugador);
     }
 
     /**
@@ -82,7 +82,7 @@ public class GestionLogs {
             }
         }
 
-        return "(" + GestionFicheros.getDiaHoraActual() + ")" +
+        return GestionFicheros.getDiaHoraActual() +
                 " Inicio de partida con " + contHumanos + " jugadores humanos, " + contCpus + " jugadores de CPU";
     }
 
@@ -106,7 +106,7 @@ public class GestionLogs {
                     ganadores += jugador.getNombre() + ", ";
                 }
             }
-            return "(" + GestionFicheros.getDiaHoraActual() + ")" + " Fin de partida. Han ganado " + ganadores;
+            return GestionFicheros.getDiaHoraActual() + " Fin de partida. Han ganado " + ganadores;
         }
     }
 
@@ -117,7 +117,7 @@ public class GestionLogs {
      * @since 1.0
      */
     public static String logException (Exception e) {
-        return "(" + GestionFicheros.getDiaHoraActual() + ") Ha ocurrido un error: " + e.getMessage();
+        return GestionFicheros.getDiaHoraActual() + " Ha ocurrido un error: " + e.getMessage();
     }
 
     /**

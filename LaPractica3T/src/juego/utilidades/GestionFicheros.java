@@ -99,7 +99,7 @@ public class GestionFicheros {
         DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
         String horaString = horaHoy.format(formatoHora);
 
-        return (fechaString + " - " + horaString);
+        return ("[" + fechaString + "][" + horaString + "]");
     }
 
 }
