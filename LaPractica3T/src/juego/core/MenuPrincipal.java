@@ -17,9 +17,9 @@ import java.util.Scanner;
  * @version 1.0
  * @see MenuUsuario
  * @see Partida
- * Clase ABSTRACTA con métodos ESTÁTICOS, que se encargan de manejar las opciones del menú principal.
+ * Clase con métodos ESTÁTICOS, que se encargan de manejar las opciones del menú principal.
  */
-public abstract class MenuPrincipal {
+public class MenuPrincipal {
 
     //Atributos Menu Principal
     /**
@@ -105,7 +105,7 @@ public abstract class MenuPrincipal {
      * @param min (Opción mínima)
      * @param max (Opción máxima)
      * @return La opción elegida dentro de los límites establecidos por los parámetros
-     * @since 1.0
+     * @since 1.0+
      */
     public static int insertarOpcion (int min, int max) {
         //min: Opcion mínima disponible

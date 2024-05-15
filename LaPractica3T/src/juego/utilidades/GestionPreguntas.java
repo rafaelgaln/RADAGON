@@ -13,9 +13,9 @@ import java.util.*;
  * @author Rafael Galán López
  * @since 1.0
  * @version 1.0
- * Clase ABSTRACTA con métodos ESTÁTICOS que se encargan de las preguntas para las partidas
+ * Clase con métodos ESTÁTICOS que se encargan de las preguntas para las partidas
  */
-public abstract class GestionPreguntas {
+public class GestionPreguntas {
 
     /**
      * Scanner para la clase
@@ -33,10 +33,10 @@ public abstract class GestionPreguntas {
         char[] arraySimbolos = new char[cantidadNumeros - 1];
 
         for (int i = 0; i < arrayNumeros.length; i++) {
-            arrayNumeros[i] = (int) (Math.random() * 10) + 1; // Ajustamos el rango de números a 1-10
+            arrayNumeros[i] = (int) (Math.random() * 10) + 1;
         }
         for (int i = 0; i < arraySimbolos.length; i++) {
-            int tipoSimbolo = (int) (Math.random() * 3); // Ajustamos el rango para incluir la división
+            int tipoSimbolo = (int) (Math.random() * 3);
 
             switch (tipoSimbolo) {
                 case 0:

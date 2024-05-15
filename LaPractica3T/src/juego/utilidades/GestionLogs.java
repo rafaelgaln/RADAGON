@@ -15,10 +15,10 @@ import java.util.ArrayList;
  * @author Rafael Galán López
  * @since 1.0
  * @version 1.0
- * Clase ABSTRACTA con métodos ESTÁTICOS, que se encargan de generar los logs correctamente.
+ * Clase con métodos ESTÁTICOS, que se encargan de generar los logs correctamente.
  * Opera hacia los ficheros "salida.log[AÑO,MES,DIA].
  */
-public abstract class GestionLogs {
+public class GestionLogs {
 
     //Atributos
     /**

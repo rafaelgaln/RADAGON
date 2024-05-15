@@ -21,6 +21,7 @@ public class Main {
         GestionFicheros.checkFichero(Constantes.rutaFicheroDiccionario, Constantes.nombreFicheroDiccionario);
         GestionFicheros.checkFichero(Constantes.rutaFicheroIngles, Constantes.nombreFicheroIngles);
 
+        //Código del juego
         while (MenuPrincipal.isEstadoMenu()) {
             switch (MenuPrincipal.mostrarMenuPrincipal()) {
                 case 1:

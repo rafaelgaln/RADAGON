@@ -21,10 +21,10 @@ import java.util.Scanner;
  * @version 1.0
  * @see MenuPrincipal
  * @see juego.utilidades.GestionFicheros
- * Clase ABSTRACTA con métodos ESTÁTICOS, que se encargan de manejar el menú de usuarios para acceder
+ * Clase con métodos ESTÁTICOS, que se encargan de manejar el menú de usuarios para acceder
  * a distintas funciones.
  */
-public abstract class MenuUsuario {
+public class MenuUsuario {
 
     /**
      * Método para mostrar y abrir el menú de usuarios para acceder a las distintas opciones.

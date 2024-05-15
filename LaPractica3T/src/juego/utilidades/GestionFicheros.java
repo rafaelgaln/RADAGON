@@ -19,9 +19,9 @@ import java.util.List;
  * @author Rafael Galán López
  * @since 1.0
  * @version 1.0
- * Clase ABSTRACTA con métodos ESTÁTICOS para gestionar el control de ficheros
+ * Clase con métodos ESTÁTICOS para gestionar el control de ficheros
  */
-public abstract class GestionFicheros {
+public class GestionFicheros {
 
     //Métodos - Control de Ficheros
 
