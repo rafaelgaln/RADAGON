@@ -1,10 +1,12 @@
 package juego.core;
 import juego.partidas.Partida;
 import juego.utilidades.Constantes;
+import juego.utilidades.GestionLogs;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -48,10 +50,27 @@ public abstract class MenuPrincipal {
             }
 
         } catch (IOException e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
             System.out.println("Error: No se ha podido leer el fichero: " + e.getMessage());
         } catch (NumberFormatException e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
             System.out.println("Error: Datos erroneos en las partidas ganadas: " + e.getMessage());
         }
+    }
+
+    public static void mostrarHistorico() {
+        try {
+            List<String> lineasHistorico = Files.readAllLines(Paths.get(Constantes.rutaFicheroHistorico));
+            System.out.println("Mostrando historico...");
+            for (String linea : lineasHistorico) {
+                System.out.println(linea);
+            }
+        } catch (IOException e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
+            System.out.println("Error: No se pudo mostrar el histórico de partidas: " + e);;
+        }
+        System.out.println("Aquí termina el histórico. \n" +
+                "");
     }
 
     public static int insertarOpcion (int min, int max) {
@@ -69,6 +88,7 @@ public abstract class MenuPrincipal {
                     System.out.println("Inserte una opción válida");
                 }
             } catch (InputMismatchException e) {
+                //Creo que no hace falta Exception log aquí
                 System.out.println("Inserte una opción válida, en números enteros");
                 scanner.next();
             }

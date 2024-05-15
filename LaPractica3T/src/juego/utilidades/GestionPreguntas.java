@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class GestionPreguntas {
+public abstract class GestionPreguntas {
 
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -53,11 +53,11 @@ public class GestionPreguntas {
         try {
             palabras = Files.readAllLines(Paths.get(Constantes.rutaFicheroDiccionario));
         } catch (IOException e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
             throw new RuntimeException(e);
         }
 
         int numeroPalabra = (int) (Math.random() * (palabras.size()));
-
         return palabras.get(numeroPalabra);
     }
 
@@ -87,6 +87,7 @@ public class GestionPreguntas {
         try {
             inglesLineas = Files.readAllLines(Paths.get(Constantes.rutaFicheroIngles));
         } catch (IOException e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
             throw new RuntimeException(e);
         }
 
@@ -129,8 +130,10 @@ public class GestionPreguntas {
                 return false;
             }
         } catch (Exception e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
             System.out.println("Error: Tipo de dato insertado erroneo: " + e.getMessage() + "\n" +
                     "Respuesta evaluada como erronea.");
+            return false;
         }
         return true;
     }
@@ -150,8 +153,10 @@ public class GestionPreguntas {
                 return false;
             }
         } catch (Exception e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
             System.out.println("Error: Tipo de dato insertado erroneo: " + e.getMessage() + "\n" +
                     "Respuesta evaluada como erronea.");
+            return false;
         }
         return true;
     }
@@ -170,8 +175,10 @@ public class GestionPreguntas {
                 return false;
             }
         } catch (Exception e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
             System.out.println("Error: Tipo de dato insertado erroneo: " + e.getMessage() + "\n" +
                     "Respuesta evaluada como erronea.");
+            return false;
         }
 
         return true;

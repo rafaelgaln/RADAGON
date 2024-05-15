@@ -3,12 +3,14 @@ package juego.partidas;
 import juego.core.MenuPrincipal;
 import juego.utilidades.Constantes;
 import juego.utilidades.GestionFicheros;
+import juego.utilidades.GestionLogs;
 import juego.utilidades.GestionPreguntas;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class Partida {
                 }
             }
         } catch (IOException e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
             System.out.println("Error: Problema con el fichero " + Constantes.nombreFicheroUsuarios + ": " + e);
             System.out.println("No se pudo encontrar al jugador");
         }
@@ -107,6 +110,7 @@ public class Partida {
             Files.write(Paths.get(Constantes.rutaFicheroUsuarios), lineas);
             System.out.println("Se han actualizado las estadísticas de los jugadores");
         } catch (IOException e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
             System.err.println("Error: Hubo un problema al actualizar las estadísticas: " + e.getMessage());
         }
     }
@@ -114,6 +118,27 @@ public class Partida {
     public void limpiarListas () {
         listaJugadores.clear();
         listaGanadores.clear();
+    }
+
+    public void anyadirHistorico () {
+
+        String nombrePartida = "Partida (" + GestionFicheros.getDiaHoraActual() + ")" + System.lineSeparator();
+        String infoJugador = null;
+        try {
+            Files.writeString(Paths.get(Constantes.rutaFicheroHistorico), nombrePartida, StandardOpenOption.APPEND);
+            for (Jugador jugador : listaJugadores) {
+                if (listaGanadores.contains(jugador)) {
+                    infoJugador = jugador.getNombre() + ": (Puntos: " + jugador.getPuntos() + ") GANADOR" + System.lineSeparator();
+                } else {
+                    infoJugador = jugador.getNombre() + ": (Puntos: " + jugador.getPuntos() + ")" + System.lineSeparator();
+                }
+                Files.writeString(Paths.get(Constantes.rutaFicheroHistorico), infoJugador, StandardOpenOption.APPEND);
+            }
+            Files.writeString(Paths.get(Constantes.rutaFicheroHistorico), System.lineSeparator(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            GestionLogs.escribirLog(GestionLogs.logException(e));
+            System.out.println("Error: No se pudo actualizar el histórico.");
+        }
     }
 
     //Métodos - Fases de la partida
@@ -180,6 +205,7 @@ public class Partida {
 
     public void jugarPartida () {
 
+        GestionLogs.escribirLog(GestionLogs.logNuevaPartida(listaJugadores));
         for (int i = 1; i<=numeroRondas; i++) {
             System.out.println("¡Empieza la ronda " + i + "!");
             for (Jugador jugador : listaJugadores) {
@@ -235,8 +261,9 @@ public class Partida {
             }
         }
 
-        //Actualizar estadísticas
+        GestionLogs.escribirLog(GestionLogs.logFinPartida(listaJugadores, listaGanadores));
         actualizarStats();
+        anyadirHistorico();
         limpiarListas();
 
     }

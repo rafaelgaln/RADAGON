@@ -1,6 +1,7 @@
 package juego.partidas;
 
 import juego.core.MenuPrincipal;
+import juego.utilidades.GestionLogs;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -29,6 +30,7 @@ public class JugadorHumano extends Jugador {
                 respuestaUsuario = scanner.nextInt();
                 respuestaValida = true;
             } catch (InputMismatchException e) {
+                GestionLogs.escribirLog(GestionLogs.logException(e));
                 System.out.println("Error: Debes ingresar un número entero.");
                 scanner.nextLine();
             }
@@ -49,6 +51,7 @@ public class JugadorHumano extends Jugador {
                 respuestaUsuario = scanner.nextLine();
                 respuestaValida = true;
             } catch (InputMismatchException e) {
+                GestionLogs.escribirLog(GestionLogs.logException(e));
                 System.out.println("Error: Debes ingresar un número entero.");
                 scanner.nextLine();
             }
@@ -68,6 +71,7 @@ public class JugadorHumano extends Jugador {
                 respuestaValida = true;
 
             } catch (InputMismatchException e) {
+                GestionLogs.escribirLog(GestionLogs.logException(e));
                 System.out.println("Error: Debes ingresar un número entero.");
                 scanner.nextLine();
             }

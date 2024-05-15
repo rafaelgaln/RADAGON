@@ -13,8 +13,11 @@ public class Main {
 
         //Gestionar Ficheros antes de empezar la base del programa
         GestionFicheros.crearDirectorio(Constantes.nombreDirectorioFicheros);
-        GestionFicheros.crearDirectorio(Constantes.nombreDirectorioLogs);
+        GestionFicheros.crearDirectorio(Constantes.rutaDirectorioLogs);
+
         GestionFicheros.crearFichero(Constantes.rutaFicheroUsuarios, Constantes.nombreFicheroUsuarios);
+        GestionFicheros.crearFichero(Constantes.rutaFicheroHistorico, Constantes.nombreFicheroHistorico);
+
         GestionFicheros.checkFichero(Constantes.rutaFicheroDiccionario, Constantes.nombreFicheroDiccionario);
         GestionFicheros.checkFichero(Constantes.rutaFicheroIngles, Constantes.nombreFicheroIngles);
 
@@ -30,6 +33,9 @@ public class Main {
                     break;
                 case 2:
                     MenuPrincipal.mostrarRanking();
+                    break;
+                case 3:
+                    MenuPrincipal.mostrarHistorico();
                     break;
                 case 4:
                     MenuUsuario.abrirMenuUsuario();
