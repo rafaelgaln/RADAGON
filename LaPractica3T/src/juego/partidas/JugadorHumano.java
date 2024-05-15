@@ -13,6 +13,7 @@ public class JugadorHumano extends Jugador {
     //Constructor
     public JugadorHumano(String nombre) {
         setNombre(nombre);
+        setPuntos(0);
     }
 
     //Métodos heredados
@@ -63,7 +64,7 @@ public class JugadorHumano extends Jugador {
         while (!respuestaValida) {
             try {
                 System.out.print("- Tu respuesta: ");
-                opcionCorrecta = MenuPrincipal.insertarOpcion(1,2);
+                opcionCorrecta = MenuPrincipal.insertarOpcion(1,4);
                 respuestaValida = true;
 
             } catch (InputMismatchException e) {

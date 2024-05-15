@@ -5,6 +5,7 @@ public class Cpu extends Jugador {
     //Constructor
     public Cpu(String nombre) {
         setNombre(nombre);
+        setPuntos(0);
     }
 
     //Métodos heredados

@@ -11,15 +11,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        //Gestionar Ficheros antes de empezar la base del programa
+        GestionFicheros.crearDirectorio(Constantes.nombreDirectorioFicheros);
+        GestionFicheros.crearDirectorio(Constantes.nombreDirectorioLogs);
         GestionFicheros.crearFichero(Constantes.rutaFicheroUsuarios, Constantes.nombreFicheroUsuarios);
+        GestionFicheros.checkFichero(Constantes.rutaFicheroDiccionario, Constantes.nombreFicheroDiccionario);
+        GestionFicheros.checkFichero(Constantes.rutaFicheroIngles, Constantes.nombreFicheroIngles);
 
         while (MenuPrincipal.isEstadoMenu()) {
             switch (MenuPrincipal.mostrarMenuPrincipal()) {
                 case 1:
                     Partida partida = new Partida();
                     partida.bienvenida();
+                    partida.tamanioPartida();
                     partida.escogerJugadores();
+                    partida.jugarPartida();
+                    partida.finPartida();
                     break;
                 case 2:
                     MenuPrincipal.mostrarRanking();

@@ -28,7 +28,7 @@ public abstract class MenuUsuario {
             case 1: //Ver usuarios
                 MenuUsuario.verUsuarios();
                 break;
-            case 2:
+            case 2: //Añadir usuario
                 MenuUsuario.anyadirUsuario();
                 break;
             case 3: //Borrar usuarios
@@ -40,7 +40,7 @@ public abstract class MenuUsuario {
 
     }
 
-    public static void anyadirUsuario() {
+    public static boolean anyadirUsuario() {
         Path pathFicheroUsuarios = Paths.get(Constantes.rutaFicheroUsuarios);
         Scanner scanner = new Scanner(System.in);
 
@@ -49,21 +49,23 @@ public abstract class MenuUsuario {
 
         if (nombreUsuario.isBlank()) {
             System.out.println("Error: El nombre de usuario no puede estar vacío.");
-            return;
+            return false;
         }
 
         if (nombreUsuario.contains(",")) {
             System.out.println("Error: El nombre de usuario no puede contener comas.");
-            return;
+            return false;
         }
 
-        nombreUsuario += ",0,0\n";
+        nombreUsuario += ",0,0\n"; // Mantenemos las segundas y terceras columnas con "0,0"
 
         try {
             Files.writeString(pathFicheroUsuarios, nombreUsuario, StandardOpenOption.APPEND);
-            System.out.println("Se ha creado el usuario '" + nombreUsuario + "'.");
+            System.out.println("Se ha añadido el usuario '" + nombreUsuario.split(",")[0] + "'.");
+            return true;
         } catch (IOException e) {
-            System.out.println("Error: No se ha podido crear el usuario: " + e.getMessage());
+            System.out.println("Error: No se ha podido añadir el usuario: " + e.getMessage());
+            return false;
         }
     }
 
@@ -81,7 +83,7 @@ public abstract class MenuUsuario {
 
                     System.out.println("Nombre: " + nombre + " - Jugadas: " + jugadas + " - Ganadas: " + ganadas);
                 } else {
-                    System.out.println("Aviso: Este usuario le falta información (Linea " + linea + ").");
+                    System.out.println("Aviso: Este usuario le falta información: (" + linea + ").");
                 }
             }
         } catch (IOException e) {
