@@ -14,5 +14,8 @@ public final class Constantes {
     public static final String rutaFicheroDiccionario = "ficheros/" + nombreFicheroDiccionario;
     public static final String rutaFicheroIngles = "ficheros/" + nombreFicheroIngles;
 
+    //Valores
+    public static final int MAX_JUGADORES = 4;
+
 
 }

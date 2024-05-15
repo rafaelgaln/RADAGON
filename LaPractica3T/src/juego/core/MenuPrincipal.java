@@ -1,18 +1,19 @@
 package juego.core;
+import juego.partidas.Partida;
 import juego.utilidades.Constantes;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Comparator;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public abstract class MenuPrincipal {
 
     //Atributos Menu Principal
     private static boolean estadoMenu = true;
+    static Scanner scanner = new Scanner(System.in);
 
     //Constructor privado
     private MenuPrincipal () {}
@@ -30,16 +31,13 @@ public abstract class MenuPrincipal {
 
     public static void mostrarRanking() {
         try {
-
             List<String> lineas = Files.lines(Path.of(Constantes.rutaFicheroUsuarios))
-
                     .sorted((linea1, linea2) -> {
                         int ganadas1 = Integer.parseInt(linea1.split(",")[2]);
                         int ganadas2 = Integer.parseInt(linea2.split(",")[2]);
                         return Integer.compare(ganadas2, ganadas1);
                     })
-                    .collect(Collectors.toList());
-
+                    .toList();
 
             System.out.println("Ranking de jugadores:");
             for (int i = 0; i < lineas.size(); i++) {
@@ -50,9 +48,9 @@ public abstract class MenuPrincipal {
             }
 
         } catch (IOException e) {
-            System.out.println("Error al leer el archivo: " + e.getMessage());
+            System.out.println("Error: No se ha podido leer el fichero: " + e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println("Error al convertir el número de partidas ganadas: " + e.getMessage());
+            System.out.println("Error: Datos erroneos en las partidas ganadas: " + e.getMessage());
         }
     }
 
@@ -63,11 +61,16 @@ public abstract class MenuPrincipal {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            int opcion = scanner.nextInt();
-            if (opcion >= min && opcion <= max) {
-                return opcion;
-            } else {
-                System.out.println("Inserte una opción válida");
+            try {
+                int opcion = scanner.nextInt();
+                if (opcion >= min && opcion <= max) {
+                    return opcion;
+                } else {
+                    System.out.println("Inserte una opción válida");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Inserte una opción válida, en números enteros");
+                scanner.next();
             }
         }
     }

@@ -1,6 +1,7 @@
 package juego.main;
 import juego.core.MenuPrincipal;
 import juego.core.MenuUsuario;
+import juego.partidas.Partida;
 import juego.utilidades.Constantes;
 import juego.utilidades.GestionFicheros;
 
@@ -11,11 +12,15 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-
         GestionFicheros.crearFichero(Constantes.rutaFicheroUsuarios, Constantes.nombreFicheroUsuarios);
 
         while (MenuPrincipal.isEstadoMenu()) {
             switch (MenuPrincipal.mostrarMenuPrincipal()) {
+                case 1:
+                    Partida partida = new Partida();
+                    partida.bienvenida();
+                    partida.escogerJugadores();
+                    break;
                 case 2:
                     MenuPrincipal.mostrarRanking();
                     break;

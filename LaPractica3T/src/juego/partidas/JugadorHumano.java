@@ -1,5 +1,7 @@
 package juego.partidas;
 
+import juego.core.MenuPrincipal;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,7 +12,7 @@ public class JugadorHumano extends Jugador {
 
     //Constructor
     public JugadorHumano(String nombre) {
-        this.nombre = nombre;
+        setNombre(nombre);
     }
 
     //Métodos heredados
@@ -61,12 +63,9 @@ public class JugadorHumano extends Jugador {
         while (!respuestaValida) {
             try {
                 System.out.print("- Tu respuesta: ");
-                opcionCorrecta = scanner.nextInt();
-                if (opcionCorrecta >= 1 && opcionCorrecta <= 4) {
-                    respuestaValida = true;
-                } else {
-                    System.out.println("Error: Debes ingresar un número del 1 al 4.");
-                }
+                opcionCorrecta = MenuPrincipal.insertarOpcion(1,2);
+                respuestaValida = true;
+
             } catch (InputMismatchException e) {
                 System.out.println("Error: Debes ingresar un número entero.");
                 scanner.nextLine();
