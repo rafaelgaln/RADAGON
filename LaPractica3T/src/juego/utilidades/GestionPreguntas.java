@@ -9,10 +9,24 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+/**
+ * @author Rafael Galán López
+ * @since 1.0
+ * @version 1.0
+ * Clase ABSTRACTA con métodos ESTÁTICOS que se encargan de las preguntas para las partidas
+ */
 public abstract class GestionPreguntas {
 
+    /**
+     * Scanner para la clase
+     */
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Método que genera una operación matemática al azar en forma de String
+     * @return La operación en forma de String
+     * @since 1.0
+     */
     public static String generarOperacion() {
         int cantidadNumeros = (int) (Math.random() * 5) + 4;
         int[] arrayNumeros = new int[cantidadNumeros];
@@ -47,6 +61,11 @@ public abstract class GestionPreguntas {
         return operacionMates.toString();
     }
 
+    /**
+     * Método que elige una palabra aleatoria del fichero "diccionario.txt" para la pregunta de Lengua
+     * @return La palabra escogida
+     * @since 1.0
+     */
     public static String palabraAleatoria() {
         List<String> palabras = new ArrayList<String>();
 
@@ -61,6 +80,12 @@ public abstract class GestionPreguntas {
         return palabras.get(numeroPalabra);
     }
 
+    /**
+     * Método que se encarga de ocultar letras de la palabra puesta como parámetro.
+     * @param palabra La palabra, antes elegida del diccionario.txt
+     * @return La palabra con letras escondidas
+     * @since 1.0
+     */
     public static String ocultarPalabra(String palabra) {
 
         int numeroLetras = palabra.length();
@@ -80,6 +105,11 @@ public abstract class GestionPreguntas {
         return palabraOculta;
     }
 
+    /**
+     * Método que se encarga de elegir una pregunta del fichero "ingles.txt" y barajear las respuestas
+     * @return La opción correcta del 1-4, además de imprimir la pregunta
+     * @since 1.0
+     */
     public static int elegirCuestion() {
 
         List<String> inglesLineas = new ArrayList<String>();
@@ -112,6 +142,11 @@ public abstract class GestionPreguntas {
         return indiceRespuestaCorrecta;
     }
 
+    /**
+     * Pregunta de matemáticas. Se genera una operación matemática al azar.
+     * @param jugador Jugador que va a responder la pregunta.
+     * @return true si se acierta, false si no
+     */
     public static boolean preguntaMates(Jugador jugador) {
 
         String stringOperacion = generarOperacion();
@@ -138,6 +173,11 @@ public abstract class GestionPreguntas {
         return true;
     }
 
+    /**
+     * Pregunta de lengua. Se debe escribir completa una palabra cuyas letras aparecen escondidas
+     * @param jugador Jugador que va a responder la pregunta.
+     * @return true si se acierta, false si no
+     */
     public static boolean preguntaLengua(Jugador jugador) {
 
         String palabra = palabraAleatoria();
@@ -161,6 +201,11 @@ public abstract class GestionPreguntas {
         return true;
     }
 
+    /**
+     * Pregunta de matemáticas. Se elige una cuestión tipo test de 4 opciones en inglés.
+     * @param jugador Jugador que va a responder la pregunta.
+     * @return true si se acierta, false si no
+     */
     public static boolean preguntaIngles(Jugador jugador) {
 
         //Nota: elegirCuestion() imprime la pregunta
@@ -184,6 +229,11 @@ public abstract class GestionPreguntas {
         return true;
     }
 
+    /**
+     * Método que elige un tipo de pregunta al azar (Mates, ingles, lengua)
+     * @param jugador Jugador que va a responder la pregunta.
+     * @return true si se acierta, false si no
+     */
     public static boolean preguntaAleatoria(Jugador jugador) {
         int numeroAleatorio = (int) (Math.random()*3)+1;
         boolean preguntaAcertada = false;

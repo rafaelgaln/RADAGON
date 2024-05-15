@@ -11,16 +11,34 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author Rafael Galán López
+ * @since 1.0
+ * @version 1.0
+ * @see MenuUsuario
+ * @see Partida
+ * Clase ABSTRACTA con métodos ESTÁTICOS, que se encargan de manejar las opciones del menú principal.
+ */
 public abstract class MenuPrincipal {
 
     //Atributos Menu Principal
+    /**
+     * Determina si el menú está activo o no.
+     */
     private static boolean estadoMenu = true;
+    /**
+     * Scanner de clase utilizado para el insertar opciones a lo largo del programa y otras clases.
+     * Usado principalmente por el método insertarOpcion()
+     */
     static Scanner scanner = new Scanner(System.in);
 
-    //Constructor privado
-    private MenuPrincipal () {}
-
     //Métodos Menú Principal
+
+    /**
+     *
+     * @return Opcion elegida por el usuario para acceder a una función (1-5)
+     * @since 1.0
+     */
     public static int mostrarMenuPrincipal () {
         System.out.println("Menú Principal \n" +
                 "(1) Jugar partida \n" +
@@ -31,6 +49,10 @@ public abstract class MenuPrincipal {
         return insertarOpcion(1,5);
     }
 
+    /**
+     * Mostrar ranking de jugadores, operando desde el fichero 'usuarios.csv'
+     * @since 1.0
+     */
     public static void mostrarRanking() {
         try {
             List<String> lineas = Files.lines(Path.of(Constantes.rutaFicheroUsuarios))
@@ -58,6 +80,11 @@ public abstract class MenuPrincipal {
         }
     }
 
+    /**
+     * Mostrar histórico de partidas oeprando mediante el fichero 'historico.txt'.
+     * Este se actualiza después de cada partida.
+     * @since 1.0
+     */
     public static void mostrarHistorico() {
         try {
             List<String> lineasHistorico = Files.readAllLines(Paths.get(Constantes.rutaFicheroHistorico));
@@ -73,6 +100,13 @@ public abstract class MenuPrincipal {
                 "");
     }
 
+    /**
+     *
+     * @param min (Opción mínima)
+     * @param max (Opción máxima)
+     * @return La opción elegida dentro de los límites establecidos por los parámetros
+     * @since 1.0
+     */
     public static int insertarOpcion (int min, int max) {
         //min: Opcion mínima disponible
         //max: Opción máxima disponible

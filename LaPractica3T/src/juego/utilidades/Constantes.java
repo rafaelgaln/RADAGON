@@ -28,5 +28,4 @@ public final class Constantes {
     public static final int RONDAS_PARTIDAS_NORMAL = 10;
     public static final int RONDAS_PARTIDAS_LARGA = 20;
 
-
 }

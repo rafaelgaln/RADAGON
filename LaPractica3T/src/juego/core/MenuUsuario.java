@@ -1,6 +1,7 @@
 package juego.core;
 
 import juego.main.Main;
+import juego.partidas.Partida;
 import juego.utilidades.Constantes;
 import juego.utilidades.GestionLogs;
 
@@ -14,8 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author Rafael Galán López
+ * @since 1.0
+ * @version 1.0
+ * @see MenuPrincipal
+ * @see juego.utilidades.GestionFicheros
+ * Clase ABSTRACTA con métodos ESTÁTICOS, que se encargan de manejar el menú de usuarios para acceder
+ * a distintas funciones.
+ */
 public abstract class MenuUsuario {
 
+    /**
+     * Método para mostrar y abrir el menú de usuarios para acceder a las distintas opciones.
+     * @since 1.0
+     */
     public static void abrirMenuUsuario() {
         System.out.println("Menú Usuarios \n" +
                 "(1) Ver usuarios \n" +
@@ -41,6 +55,10 @@ public abstract class MenuUsuario {
 
     }
 
+    /**
+     * Método para mostrar todos los usuarios registrados en 'usuarios.csv'
+     * @since 1.0
+     */
     public static void verUsuarios() {
         System.out.println("Mostrando usuarios...");
         try {
@@ -67,6 +85,11 @@ public abstract class MenuUsuario {
         }
     }
 
+    /**
+     * Método para añadir un usuario a 'usuarios.csv'
+     * @return Si tuvo éxito la operación
+     * @since 1.0
+     */
     public static boolean anyadirUsuario() {
         Path pathFicheroUsuarios = Paths.get(Constantes.rutaFicheroUsuarios);
         Scanner scanner = new Scanner(System.in);
@@ -98,7 +121,11 @@ public abstract class MenuUsuario {
         }
     }
 
-    public static void borrarUsuario() {
+    /**
+     * Método para borrar usuarios de 'usuarios.csv'
+     * @since 1.0
+     */
+    public static boolean borrarUsuario() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("- Inserta el nombre del usuario que quieres borrar: ");
@@ -122,15 +149,17 @@ public abstract class MenuUsuario {
 
             if (!usuarioEncontrado) {
                 System.out.println("El usuario '" + nombreUsuarioBorrar + "' no existe.");
-                return;
+                return false;
             }
 
             Files.write(Path.of(Constantes.rutaFicheroUsuarios), lineasNuevas);
             System.out.println("Se ha borrado el usuario '" + nombreUsuarioBorrar + "'.");
             GestionLogs.escribirLog(GestionLogs.logJugadorBorrado(nombreUsuarioBorrar));
+            return true;
         } catch (IOException e) {
             GestionLogs.escribirLog(GestionLogs.logException(e));
             System.out.println("Error: No se pudo borrar el usuario: " + e.getMessage());
+            return false;
         }
     }
 }

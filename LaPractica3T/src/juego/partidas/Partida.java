@@ -17,21 +17,61 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author Rafael Galán López
+ * @since 1.0
+ * @version 1.0
+ * @see JugadorHumano
+ * @see Cpu
+ * @see Jugador
+ * Clase INSTANCIABLE para crear partidas y jugarlas.
+ * Primero se elige la longitud de la partida
+ * Segundo se eligen los jugadores (Humanos y CPU)
+ * Tercero se juega
+ * Último se hacen métodos Post-partida
+ */
 public class Partida {
 
     //Atributos
+    /**
+     * Lista de jugadores de la partida
+     */
     private ArrayList<Jugador> listaJugadores;
+
+    /**
+     * List de ganadores de la partida
+     */
     private ArrayList<Jugador> listaGanadores;
+
+    /**
+     * Número de rondas de la partida
+     */
     private int numeroRondas;
+
+    /**
+     * Scanner de la clase para preparar la partida
+     */
     static Scanner scanner = new Scanner(System.in);
 
     //Constructor
+
+    /**
+     * Constructor de la partida para instanciarla
+     */
     public Partida() {
         this.listaJugadores = new ArrayList<Jugador>();
         this.listaGanadores = new ArrayList<Jugador>();
     }
 
     //Métodos
+
+    /**
+     * Método para buscar un usuario mediante el String proporcionado en el parámetro en el fichero
+     * "usuarios.csv" Se usa para validar si el usuario está registrado para jugar la partida
+     * @param nombreUsuario Nombre de usuario a buscar en "usuarios.csv"
+     * @return true si el usuario está, false si no.
+     * @since 1.0
+     */
     public boolean buscarUsuario(String nombreUsuario) {
 
         try {
@@ -50,6 +90,13 @@ public class Partida {
         return false;
     }
 
+    /**
+     * Método que valida si el nombre de usuario proporcionado puede jugar una partida
+     * Primero busca si está registrado, y luego si está ya añadido.
+     * @param nombreUsuario Nombre del usuario insertado
+     * @return true si se ha añadido, false si no
+     * @since 1.0
+     */
     public boolean anyadirUsuario (String nombreUsuario) {
         boolean nombreRegistrado = buscarUsuario(nombreUsuario);
         if (nombreRegistrado) {
@@ -68,6 +115,12 @@ public class Partida {
         }
     }
 
+    /**
+     * Método para añadir una CPU al ArrayList listaJugadores para la partida. La añade
+     * automáticamente al seleccionar la opción
+     * @return true si se añade, false si no
+     * @since 1.0
+     */
     public boolean anyadirCpu () {
         int numCpusContados = 0;
         for (Jugador jugador : listaJugadores) {
@@ -81,6 +134,10 @@ public class Partida {
         return true;
     }
 
+    /**
+     * Método que actualiza las estadísticas de los jugadores después de la aprtida en el fichero "usuarios.csv"
+     * @since 1.0
+     */
     public void actualizarStats() {
 
         try {
@@ -115,11 +172,19 @@ public class Partida {
         }
     }
 
+    /**
+     * Método para limpiar los ArrayList después de la partida
+     * @since 1.0
+     */
     public void limpiarListas () {
         listaJugadores.clear();
         listaGanadores.clear();
     }
 
+    /**
+     * Método para añadir los datos de la partida al fichero "historico.txt"
+     * @since 1.0
+     */
     public void anyadirHistorico () {
 
         String nombrePartida = "Partida (" + GestionFicheros.getDiaHoraActual() + ")" + System.lineSeparator();
@@ -142,10 +207,20 @@ public class Partida {
     }
 
     //Métodos - Fases de la partida
+
+    /**
+     * Método que imprime un mensaje al empezar la partida
+     * @since 1.0
+     */
     public void bienvenida () {
         System.out.println("¡Empezando una nueva partida!");
     }
 
+    /**
+     * Método para determinar el tamaño de la partida, eligiendo entre 4 tipos de partidas:
+     * Rápidas, cortas, normales, largas.
+     * @since 1.0
+     */
     public void tamanioPartida () {
         System.out.println("Elegid el tipo de partida a jugar \n" +
                 "1) Partida rápida (3 rondas) \n" +
@@ -173,6 +248,10 @@ public class Partida {
         }
     }
 
+    /**
+     * Método para escoger los jugadores para lapartida y añadirlos al ArrayList listaJugadores
+     * @since 1.0
+     */
     public void escogerJugadores() {
 
         for (int i = 0; i<Constantes.MAX_JUGADORES; i++) {
@@ -203,6 +282,10 @@ public class Partida {
         scanner.nextLine();
     }
 
+    /**
+     * Método en donde se juega la partida. Termina cuando se alcance el máximo de rondas jugadas.
+     * @since 1.0
+     */
     public void jugarPartida () {
 
         GestionLogs.escribirLog(GestionLogs.logNuevaPartida(listaJugadores));
@@ -235,6 +318,12 @@ public class Partida {
         }
     }
 
+    /**
+     * Método donde se realizan sentencias post-partida: limpiar listas,
+     * añadir al histórico, actualizar estadísticas...
+     * También se calcula los ganadores, o ganador
+     * @since 1.0
+     */
     public void finPartida () {
         //Puntuación máxima obtenida
         int maxPuntosObtenidos = 0;

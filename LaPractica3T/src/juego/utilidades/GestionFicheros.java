@@ -1,5 +1,6 @@
 package juego.utilidades;
 
+import juego.partidas.Cpu;
 import juego.partidas.Jugador;
 import juego.partidas.JugadorHumano;
 import juego.partidas.Partida;
@@ -14,9 +15,22 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * @author Rafael Galán López
+ * @since 1.0
+ * @version 1.0
+ * Clase ABSTRACTA con métodos ESTÁTICOS para gestionar el control de ficheros
+ */
 public abstract class GestionFicheros {
 
     //Métodos - Control de Ficheros
+
+    /**
+     * Método para crear un fichero. Se proporciona la ruta, y el nombre del fichero.
+     * @param rutaFichero Ruta del fichero Path
+     * @param nombreFichero Nombre del fichero
+     * @since 1.0
+     */
     public static void crearFichero(String rutaFichero, String nombreFichero) {
 
         Path pathRutaFichero = Paths.get(rutaFichero);
@@ -31,6 +45,14 @@ public abstract class GestionFicheros {
         }
     }
 
+    /**
+     * Método para comprobar los ficheros que no se pueden generar automáticamente
+     * como es el caso de "ingles.txt" o "diccionario.txt"
+     * Si están desaparecidos, da el aviso.
+     * @param rutaFichero Ruta del fichero Path
+     * @param nombreFichero Nombre del fichero
+     * @since 1.0
+     */
     public static void checkFichero(String rutaFichero, String nombreFichero) {
         Path pathRutaFichero = Paths.get(rutaFichero);
         if (!Files.exists(pathRutaFichero)) {
@@ -40,6 +62,11 @@ public abstract class GestionFicheros {
         }
     }
 
+    /**
+     * Método para crear directorios
+     * @param rutaDirectorio Ruta del directorio Path
+     * @since 1.0
+     */
     public static void crearDirectorio(String rutaDirectorio) {
 
         Path pathRutaDirectorio = Paths.get(rutaDirectorio);
@@ -56,6 +83,12 @@ public abstract class GestionFicheros {
     }
 
     //Métodos
+
+    /**
+     * Métodos para generar El día y hora en String. Utilizado para los logs y el histórico
+     * @return El día y la hora en String
+     * @since 1.0
+     */
     public static String getDiaHoraActual() {
 
         LocalDate fechaHoy = LocalDate.now();
